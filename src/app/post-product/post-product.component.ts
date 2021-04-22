@@ -50,11 +50,11 @@ export class PostProductComponent implements OnInit {
       if (product.price) {
         if (product.categoryId) {
           if (product.description) {
-            if (product.product_picture) {
+            // if (product.product_picture) {
               return true;
-            } else {
-              this.data.error("Please select product image.");
-            }
+            // } else {
+            //   this.data.error("Please select product image.");
+            // }
           } else {
             this.data.error("Please enter description.");
           }
@@ -77,7 +77,9 @@ export class PostProductComponent implements OnInit {
     this.btnDisabled = true;
     try {
       if (this.validate(this.product)) {
-        const form = new FormData();
+        let form = new FormData();
+        console.log("form data", form);
+        
         for (const key in this.product) {
           if (this.product.hasOwnProperty(key)) {
             if (key === "product_picture") {

@@ -22,8 +22,11 @@ export class CategoriesComponent implements OnInit {
   constructor(private data: DataService, private rest: RestApiService) {}
 
   async ngOnInit() {
+
     try {
       const data = await this.rest.get("http://localhost:3030/api/categories");
+      console.log("categoies data", data);
+      
       data["success"]
         ? (this.categories = data["categories"])
         : this.data.error(data["message"]);
