@@ -18,7 +18,7 @@
       </a>
     </div>
     <hr style="margin-top: 15rem;" />
-    <div *ngIf="data.user" class="card bg-light mt-5">
+    <div *ngIf="data.user && data.user.isSeller" class="card bg-light mt-5">
       <div class="card-body">
         <h4 class="card-title">Add New Category</h4>
         <hr />
