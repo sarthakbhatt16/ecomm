@@ -65,7 +65,11 @@
 			<div class="wtf text-center">
 				"WTF you want?!"
 			</div>
-			<button class="btn btn-big">
+			<button 
+			class="btn btn-big nav-link"
+			(click)="collapse()"
+				routerLink="/categories"
+				routerLinkActive="active">
 				Explore
 			</button>
 		</div>
