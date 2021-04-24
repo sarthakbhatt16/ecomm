@@ -1,4 +1,7 @@
 $main: transparent;
+* {
+	font-family: 'Saira Condensed';
+}
 
 .bg-main {
 	background-color: $main;
@@ -53,10 +56,11 @@ h5 {
 	color: gold;
 }
 
-.explore {
-	font-family: Tachyon;
+.font {
+	font-family: 'Saira Condensed';
 }
 .btn {
+	font-family: 'Saira Condensed';
 	border: 1px solid white;
 	border-radius: 1rem;
 	background: no-repeat linear-gradient(180deg, #3fffff 0%, rgba(255, 255, 255, 1) 100%);

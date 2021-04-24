@@ -26,17 +26,17 @@
       </div> -->
       <div class="w-100">
         <ul class="navbar-nav">
-			<li class="nav-item ml-0 ml-md-4 big center">
+			<li class="nav-item ml-0 ml-md-4 big center font">
 				<a href="">
 					Flower
 				</a>  
 			</li>
-			<li class="nav-item ml-0 ml-md-4 big center">
+			<li class="nav-item ml-0 ml-md-4 big center font">
 				<a href="">
 					Edible
 				</a>
 			</li>
-			<li class="nav-item ml-0 ml-md-4 big center">
+			<li class="nav-item ml-0 ml-md-4 big center font">
 				<a href="">
 					about
 				</a>
@@ -56,8 +56,8 @@
           >
             <a class="nav-link dropdown-toggle btn-style center" ngbDropdownToggle>
               <!-- <i class="fa fa-user mr-1"></i> -->
-              <span *ngIf="!token">SignUp</span>
-              <span *ngIf="data.user">{{ data.user.name }}</span>
+              <span *ngIf="!token" class="font big">SignUp</span>
+              <span *ngIf="data.user" class="font big">{{ data.user.name }}</span>
             </a>
             <div ngbDropdownMenu class="dropdown-menu">
               <a
@@ -72,7 +72,7 @@
                 *ngIf="!token"
                 (click)="closeDropdown(dropdown); collapse()"
                 routerLink="/login"
-                class="dropdown-item"
+                class="dropdown-item font"
               >
                 <i class="fa fa-key" aria-hidden="true"></i> Login
               </a>
@@ -98,7 +98,7 @@
               (click)="collapse()"
               routerLink="/cart"
               routerLinkActive="active"
-              class="nav-link btn-style btn-black"
+              class="nav-link btn-style btn-black font big"
             >
               <i class="fa fa-shopping-cart mr-1"></i>
               Cart
