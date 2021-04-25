@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
   newCategory = "";
   btnDisabled = false;
 
-  constructor(private data: DataService, private rest: RestApiService) {}
+  constructor(public data: DataService, private rest: RestApiService) {}
 
   async ngOnInit() {
 

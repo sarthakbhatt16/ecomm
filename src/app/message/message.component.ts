@@ -8,7 +8,7 @@ import { DataService } from "../data.service";
   styleUrls: ["./message.component.scss"],
 })
 export class MessageComponent implements OnInit {
-  constructor(private data: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit() {}
 }

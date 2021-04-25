@@ -14,7 +14,7 @@ import { DataService } from "../data.service";
 
 //exporting Profile component for reuse
 export class ProfileComponent implements OnInit {
-  constructor(private data: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit() {}
 }
