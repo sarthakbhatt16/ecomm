@@ -22,7 +22,7 @@ export class MyProductsComponent implements OnInit {
   async ngOnInit() {
     try {
       const data = await this.rest.get(
-        "http://localhost:3030/api/seller/products"
+        "https://icecreammandc.herokuapp.com/api/seller/products"
       );
       data["success"]
         ? (this.products = data["products"])
@@ -37,7 +37,7 @@ export class MyProductsComponent implements OnInit {
     //console.log("deleted the product", id);
     try {
       const data = await this.rest.post(
-        "http://localhost:3030/api/seller/products/" + id,
+        "https://icecreammandc.herokuapp.com/api/seller/products/" + id,
         {}
       );
       console.log(data);

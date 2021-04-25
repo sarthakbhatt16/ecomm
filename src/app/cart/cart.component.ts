@@ -81,7 +81,7 @@ export class CartComponent implements OnInit {
 
   async checkout() {
     const data = await this.rest.get(
-      "http://localhost:3030/api/accounts/address"
+      "https://icecreammandc.herokuapp.com/api/accounts/address"
     );
 
     if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.cartItems.length; ++i) {
       this.http
         .post(
-          "http://localhost:3030/api/product/" + this.cartItems[i]._id + "/qty",
+          "https://icecreammandc.herokuapp.com/api/product/" + this.cartItems[i]._id + "/qty",
           { qty: this.cartItems[i].quantity - this.quantities[i] }
         )
         .subscribe((val) => {
@@ -130,7 +130,7 @@ export class CartComponent implements OnInit {
 
         this.http
           .post(
-            "http://localhost:3030/api/payment",
+            "https://icecreammandc.herokuapp.com/api/payment",
             {
               total: this.cartTotal,
               products,

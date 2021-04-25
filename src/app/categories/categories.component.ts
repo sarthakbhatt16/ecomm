@@ -24,7 +24,7 @@ export class CategoriesComponent implements OnInit {
   async ngOnInit() {
 
     try {
-      const data = await this.rest.get("http://localhost:3030/api/categories");
+      const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/categories");
       console.log("categoies data", data);
       
       data["success"]
@@ -39,7 +39,7 @@ export class CategoriesComponent implements OnInit {
     this.btnDisabled = true;
     try {
       const data = await this.rest.post(
-        "http://localhost:3030/api/categories",
+        "https://icecreammandc.herokuapp.com/api/categories",
         { category: this.newCategory }
       );
       data["success"]
