@@ -59,6 +59,6 @@ export class OrderdetailsComponent implements OnInit {
       `https://icecreammandc.herokuapp.com/api/accounts/orders/${this.orderId}/delete`
     );
     console.log(data);
-    window.location.replace("http://localhost:4200/profile/orders");
+    window.location.replace("https://icmdcfe.herokuapp.com/profile/orders");
   }
 }

@@ -89,7 +89,7 @@ export class RegistrationComponent implements OnInit {
           localStorage.setItem("token", data["token"]);
           await this.data.getProfile();
           this.data.success("Registration successful!");
-          location.href = "http://localhost:4200/profile/address";
+          location.href = "https://icmdcfe.herokuapp.com/profile/address";
         } else {
           this.data.error(data["message"]);
         }

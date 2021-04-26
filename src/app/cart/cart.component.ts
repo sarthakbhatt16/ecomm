@@ -88,7 +88,7 @@ export class CartComponent implements OnInit {
       alert(
         "Shipping address is not entered in profile details. Please enter a shipping address"
       );
-      location.href = "http://localhost:4200/profile/address";
+      location.href = "https://icmdcfe.herokuapp.com/profile/address";
       return;
     }
 
@@ -158,6 +158,6 @@ export class CartComponent implements OnInit {
       this.data.error(error);
     }
     this.data.clearCart();
-    window.location.replace("http://localhost:4200/profile/orders");
+    window.location.replace("https://icmdcfe.herokuapp.com/profile/orders");
   }
 }
