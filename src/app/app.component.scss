@@ -11,12 +11,12 @@
 }
 
 #logo {
-	width: 15rem;
+	width: 10rem;
 }
 .btn-style {
 	all: unset;
 	font-size: large;
-	color: #343a40;
+	color: #fff;
 }
 // .btn-style-signup {
 // 	all: unset;
@@ -24,24 +24,25 @@
 // 	color: #343a40;
 // }
 .btn-black {
-	background: black;
+	// background: black;
 	color: whitesmoke !important;
 }
-.big {
-	font-size: xx-large;
-}
+// .big {
+// 	font-size: xx-large;
+// }
 .border {
 	border: 1px solid red;
 }
 
 .navbar-light .navbar-nav .nav-link {
-	color: black;
+	color: #fff;
 }
 .btn-signup {
 	border: 1px solid white;
-	border-radius: 1rem;
-	background: no-repeat linear-gradient(180deg, #3fffff 0%, rgba(255, 255, 255, 1) 100%);
-	box-shadow: 1px 1px 20px #d374f3;
+	border-radius: 8px;
+	background: none;
+	// background: no-repeat linear-gradient(180deg, #3fffff 0%, rgba(255, 255, 255, 1) 100%);
+	// box-shadow: 1px 1px 20px #d374f3;
 }
 .center {
 	display: flex !important;
@@ -50,6 +51,28 @@
 }
 .dropdown-toggle::after {
 	display: none;
+}
+.profile-btn {
+	height: 42px;
+	// border: 2px solid #fff;
+	// display: grid;
+	border-radius: 8px;
+}
+.ht {
+	margin: auto 0;
+}
+.cart-btn {
+	border: none;
+}
+.menu-wrapper img {
+	width: 2rem;
+	height: 1.25rem;
+}
+.menu {
+	width: 3rem;
+	height: 3rem;
+	border: 1 px solid white;
+	background-image: url(../assets/img/menu-icon.png);
 }
 
 @media screen and (max-width: 767px) {
@@ -62,7 +85,15 @@
 	.btn-style {
 		all: unset;
 		font-size: x-large;
-		color: #343a40;
+		color: #fff;
 		margin-bottom: 1rem;
+	}
+	.w-max {
+		width: max-content;
+		margin: auto;
+	}
+	.mid {
+		width: max-content;
+		margin: auto;
 	}
 }

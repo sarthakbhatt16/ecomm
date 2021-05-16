@@ -1,10 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-light bg-main">
   <div class="container-fluid">
     <a routerLink="/" class="navbar-brand">
-      <img src="../assets/img/ICEMANlogo3.png" alt="logo" id="logo" />
+      <img src="../assets/img/ICEMANlogo4.png" alt="logo" id="logo" />
     </a>
     <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed">
-      <span class="navbar-toggler-icon"></span>
+      <!-- <span class=".menu"></span> -->
+	  <div class="menu-wrapper">
+		  <img src="../assets/img/menu-icon.png" alt="" srcset="">
+	  </div>
+	  <!-- <img src="../../src/assets/img/menu-icon.png" alt="" srcset=""> -->
     </button>
     <div
       [ngbCollapse]="isCollapsed"
@@ -25,18 +29,18 @@
         </span>
       </div> -->
       <div class="w-100">
-        <ul class="navbar-nav">
-			<li class="nav-item ml-0 ml-md-4 big center font">
+        <ul class="navbar-nav mid">
+			<li class="nav-item ml-0 ml-md-4 big center font neon-glow">
 				<a href="">
 					Flower
 				</a>  
 			</li>
-			<li class="nav-item ml-0 ml-md-4 big center font">
+			<li class="nav-item ml-0 ml-md-4 big center font neon-glow">
 				<a href="">
 					Edible
 				</a>
 			</li>
-			<li class="nav-item ml-0 ml-md-4 big center font">
+			<li class="nav-item ml-0 ml-md-4 big center font neon-glow">
 				<a href="">
 					about
 				</a>
@@ -50,16 +54,16 @@
 				>Categories</a>
 			</li> -->
           <li
-            class="nav-item ml-0 ml-md-auto btn-signup center"
+            class="nav-item ml-0 ml-md-auto ht center"
             ngbDropdown
             #dropdown="ngbDropdown"
           >
-            <a class="nav-link dropdown-toggle btn-style center" ngbDropdownToggle>
+            <a class="nav-link dropdown-toggle profile-btn center neon" ngbDropdownToggle>
               <!-- <i class="fa fa-user mr-1"></i> -->
               <span *ngIf="!token" class="font big">SignUp</span>
-              <span *ngIf="data.user" class="font big">{{ data.user.name }}</span>
+              <span *ngIf="data.user" class="font big upper">{{ data.user.name }}</span>
             </a>
-            <div ngbDropdownMenu class="dropdown-menu">
+            <div ngbDropdownMenu class="dropdown-menu ">
               <a
                 *ngIf="token"
                 (click)="closeDropdown(dropdown); collapse()"
@@ -93,15 +97,15 @@
               </a>
             </div>
           </li>
-          <li class="nav-item ml-0 ml-md-2 btn btn-black">
+          <li class="nav-item w-max ml-md-2 neon ht cart-btn">
             <a
               (click)="collapse()"
               routerLink="/cart"
               routerLinkActive="active"
               class="nav-link btn-style btn-black font big"
             >
-              <i class="fa fa-shopping-cart mr-1"></i>
-              Cart
+              <i class="fa fa-shopping-cart mr-1 size-2"></i>
+              <!-- Cart -->
               <span *ngIf="data.cartItems" class="badge badge-warning ml-1">{{
                 data.cartItems
               }}</span>
