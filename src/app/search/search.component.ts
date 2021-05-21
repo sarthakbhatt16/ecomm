@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit {
     this.content = null;
     try {
       const data = await this.rest.get(
-        `http://localhost:3030/api/search?query=${this.query}&page=${
+        `https://icecreammandc.herokuapp.com/api/search?query=${this.query}&page=${
           this.page - 1
         }`
       );

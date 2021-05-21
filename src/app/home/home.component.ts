@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     console.log(event);
     try {
       const data = await this.rest.get(
-        `http://localhost:3030/api/products?page=${this.page - 1}`
+        `https://icecreammandc.herokuapp.com/api/products?page=${this.page - 1}`
       );
       console.log(data);
       this.lengthProducts = data["totalProducts"];
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     // try {
-    //   const data = await this.rest.get("http://localhost:3030/api/products");
+    //   const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/products");
     //   data["success"]
     //     ? (this.products = data["products"])
     //     : this.data.error("Could not fetch products.");

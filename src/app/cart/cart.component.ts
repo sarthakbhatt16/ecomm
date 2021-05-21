@@ -81,14 +81,14 @@ export class CartComponent implements OnInit {
 
   async checkout() {
     const data = await this.rest.get(
-      "http://localhost:3030/api/accounts/address"
+      "https://icecreammandc.herokuapp.com/api/accounts/address"
     );
 
     if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
       alert(
         "Shipping address is not entered in profile details. Please enter a shipping address"
       );
-      location.href = "http://localhost:4200/profile/address";
+      location.href = "https://icmdcfe.herokuapp.com/profile/address";
       return;
     }
 
@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.cartItems.length; ++i) {
       this.http
         .post(
-          "http://localhost:3030/api/product/" + this.cartItems[i]._id + "/qty",
+          "https://icecreammandc.herokuapp.com/api/product/" + this.cartItems[i]._id + "/qty",
           { qty: this.cartItems[i].quantity - this.quantities[i] }
         )
         .subscribe((val) => {
@@ -130,7 +130,7 @@ export class CartComponent implements OnInit {
 
         this.http
           .post(
-            "http://localhost:3030/api/payment",
+            "https://icecreammandc.herokuapp.com/api/payment",
             {
               total: this.cartTotal,
               products,
@@ -158,6 +158,6 @@ export class CartComponent implements OnInit {
       this.data.error(error);
     }
     this.data.clearCart();
-    window.location.replace("http://localhost:4200/profile/orders");
+    window.location.replace("https://icmdcfe.herokuapp.com/profile/orders");
   }
 }

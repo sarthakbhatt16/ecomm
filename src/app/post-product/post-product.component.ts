@@ -36,7 +36,7 @@ export class PostProductComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const data = await this.rest.get("http://localhost:3030/api/categories");
+      const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/categories");
       data["success"]
         ? (this.categories = data["categories"])
         : this.data.error(data["message"]);
@@ -94,7 +94,7 @@ export class PostProductComponent implements OnInit {
           }
         }
         const data = await this.rest.post(
-          "http://localhost:3030/api/seller/products",
+          "https://icecreammandc.herokuapp.com/api/seller/products",
           form
         );
         data["success"]
