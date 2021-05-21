@@ -9,71 +9,71 @@ import { RestApiService } from "../rest-api.service";
 
 //component specific details
 @Component({
-  selector: "app-product",
-  templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.scss"],
+	selector: "app-product",
+	templateUrl: "./product.component.html",
+	styleUrls: ["./product.component.scss"],
 })
 
 //exporting Product component for reuse
 export class ProductComponent implements OnInit {
-  myReview = {
-    title: "",
-    description: "",
-    rating: 0,
-  };
-  btnDisabled = false;
+	myReview = {
+		title: "",
+		description: "",
+		rating: 0,
+	};
+	btnDisabled = false;
 
-  product: any;
+	product: any;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private data: DataService,
-    private rest: RestApiService,
-    private router: Router
-  ) {}
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private data: DataService,
+		private rest: RestApiService,
+		private router: Router
+	) { }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((res) => {
-      this.rest
-        .get(`https://icecreammandc.herokuapp.com/api/product/${res["id"]}`)
-        .then((data) => {
-          data["success"]
-            ? (this.product = data["product"])
-            : this.router.navigate(["/"]);
-        })
-        .catch((error) => this.data.error(error["message"]));
-    });
-  }
+	ngOnInit() {
+		this.activatedRoute.params.subscribe((res) => {
+			this.rest
+				.get(`${this.data.serverURL}api/product/${res["id"]}`)
+				.then((data) => {
+					data["success"]
+						? (this.product = data["product"])
+						: this.router.navigate(["/"]);
+				})
+				.catch((error) => this.data.error(error["message"]));
+		});
+	}
 
-  btnDisabledCart() {
-    if (this.product.quantity == 0) {
-      return true;
-    }
-  }
+	btnDisabledCart() {
+		if (this.product.quantity == 0) {
+			return true;
+		}
+	}
 
-  addToCart() {
-    this.data.addToCart(this.product)
-      ? this.data.success("Product successfully added to cart.")
-      : this.data.error("Product has already been added to cart.");
-    location.href = "https://icmdcfe.herokuapp.com/cart";
-  }
+	addToCart() {
+		this.data.addToCart(this.product)
+			? this.data.success("Product successfully added to cart.")
+			: this.data.error("Product has already been added to cart.");
+		location.href = `${this.data.clientURL}cart`;
+	}
 
-  async postReview() {
-    this.btnDisabled = true;
-    try {
-      const data = await this.rest.post("https://icecreammandc.herokuapp.com/api/review", {
-        productId: this.product._id,
-        title: this.myReview.title,
-        description: this.myReview.description,
-        rating: this.myReview.rating,
-      });
-      data["success"]
-        ? this.data.success(data["message"])
-        : this.data.error(data["message"]);
-      this.btnDisabled = false;
-      location.reload();
-    } catch (error) {
-      this.data.error(error["message"]);
-    }
-  }
+	async postReview() {
+		this.btnDisabled = true;
+		try {
+			const data = await this.rest.post(`${this.data.serverURL}api/review`, {
+				productId: this.product._id,
+				title: this.myReview.title,
+				description: this.myReview.description,
+				rating: this.myReview.rating,
+			});
+			data["success"]
+				? this.data.success(data["message"])
+				: this.data.error(data["message"]);
+			this.btnDisabled = false;
+			location.reload();
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+	}
 }
