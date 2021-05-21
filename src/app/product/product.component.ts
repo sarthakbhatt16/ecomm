@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((res) => {
       this.rest
-        .get(`http://localhost:3030/api/product/${res["id"]}`)
+        .get(`https://icecreammandc.herokuapp.com/api/product/${res["id"]}`)
         .then((data) => {
           data["success"]
             ? (this.product = data["product"])
@@ -55,13 +55,13 @@ export class ProductComponent implements OnInit {
     this.data.addToCart(this.product)
       ? this.data.success("Product successfully added to cart.")
       : this.data.error("Product has already been added to cart.");
-    location.href = "http://localhost:4200/cart";
+    location.href = "https://icmdcfe.herokuapp.com/cart";
   }
 
   async postReview() {
     this.btnDisabled = true;
     try {
-      const data = await this.rest.post("http://localhost:3030/api/review", {
+      const data = await this.rest.post("https://icecreammandc.herokuapp.com/api/review", {
         productId: this.product._id,
         title: this.myReview.title,
         description: this.myReview.description,

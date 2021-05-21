@@ -36,7 +36,7 @@ export class PostProductComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const data = await this.rest.get("http://localhost:3030/api/categories");
+      const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/categories");
       data["success"]
         ? (this.categories = data["categories"])
         : this.data.error(data["message"]);
@@ -50,11 +50,11 @@ export class PostProductComponent implements OnInit {
       if (product.price) {
         if (product.categoryId) {
           if (product.description) {
-            if (product.product_picture) {
+            // if (product.product_picture) {
               return true;
-            } else {
-              this.data.error("Please select product image.");
-            }
+            // } else {
+            //   this.data.error("Please select product image.");
+            // }
           } else {
             this.data.error("Please enter description.");
           }
@@ -77,7 +77,9 @@ export class PostProductComponent implements OnInit {
     this.btnDisabled = true;
     try {
       if (this.validate(this.product)) {
-        const form = new FormData();
+        let form = new FormData();
+        console.log("form data", form);
+        
         for (const key in this.product) {
           if (this.product.hasOwnProperty(key)) {
             if (key === "product_picture") {
@@ -92,7 +94,7 @@ export class PostProductComponent implements OnInit {
           }
         }
         const data = await this.rest.post(
-          "http://localhost:3030/api/seller/products",
+          "https://icecreammandc.herokuapp.com/api/seller/products",
           form
         );
         data["success"]

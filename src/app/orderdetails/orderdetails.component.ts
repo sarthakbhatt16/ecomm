@@ -40,7 +40,7 @@ export class OrderdetailsComponent implements OnInit {
     }
     try {
       const data = await this.rest.get(
-        `http://localhost:3030/api/accounts/orders/${this.orderId}`
+        `https://icecreammandc.herokuapp.com/api/accounts/orders/${this.orderId}`
       );
       console.log(data);
       data["success"]
@@ -56,9 +56,9 @@ export class OrderdetailsComponent implements OnInit {
 
   async deleteOrder() {
     const data = await this.rest.get(
-      `http://localhost:3030/api/accounts/orders/${this.orderId}/delete`
+      `https://icecreammandc.herokuapp.com/api/accounts/orders/${this.orderId}/delete`
     );
     console.log(data);
-    window.location.replace("http://localhost:4200/profile/orders");
+    window.location.replace("https://icmdcfe.herokuapp.com/profile/orders");
   }
 }

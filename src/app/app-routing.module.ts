@@ -22,6 +22,7 @@ import { OrderdetailsComponent } from "./orderdetails/orderdetails.component";
 import { EditProductComponent } from "./edit-product/edit-product.component";
 
 import { AuthGuardService } from "./auth-guard.service";
+import { RequestDeliveryComponent } from "./request-delivery/request-delivery.component";
 
 //assigning all possible routes to variable
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: "cart",
     component: CartComponent,
+  },
+  {
+    path: "cart/request",
+    component: RequestDeliveryComponent,
   },
   {
     path: "categories",

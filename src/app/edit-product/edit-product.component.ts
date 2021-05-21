@@ -41,7 +41,7 @@ export class EditProductComponent implements OnInit {
     });
 
     this.rest
-      .get(`http://localhost:3030/api/product/${id}`)
+      .get(`https://icecreammandc.herokuapp.com/api/product/${id}`)
       .then((data) => {
         data["success"]
           ? (this.product = data["product"])
@@ -50,7 +50,7 @@ export class EditProductComponent implements OnInit {
       .catch((error) => this.data.error(error["message"]));
 
     try {
-      const data = await this.rest.get("http://localhost:3030/api/categories");
+      const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/categories");
       data["success"]
         ? (this.categories = data["categories"])
         : this.data.error(data["message"]);
@@ -108,7 +108,7 @@ export class EditProductComponent implements OnInit {
         }
         console.log(this.product);
         const data = await this.rest.post(
-          "http://localhost:3030/api/seller/editproducts",
+          "https://icecreammandc.herokuapp.com/api/seller/editproducts",
           form
         );
         console.log(data);
