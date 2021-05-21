@@ -7,47 +7,47 @@ import { DataService } from "../data.service";
 
 //Component specifications
 @Component({
-  selector: "app-categories",
-  templateUrl: "./categories.component.html",
-  styleUrls: ["./categories.component.scss"],
+	selector: "app-categories",
+	templateUrl: "./categories.component.html",
+	styleUrls: ["./categories.component.scss"],
 })
 
 //exporting the categories component
 export class CategoriesComponent implements OnInit {
-  categories: any;
+	categories: any;
 
-  newCategory = "";
-  btnDisabled = false;
+	newCategory = "";
+	btnDisabled = false;
 
-  constructor(public data: DataService, private rest: RestApiService) {}
+	constructor(public data: DataService, private rest: RestApiService) { }
 
-  async ngOnInit() {
+	async ngOnInit() {
 
-    try {
-      const data = await this.rest.get("https://icecreammandc.herokuapp.com/api/categories");
-      console.log("categoies data", data);
-      
-      data["success"]
-        ? (this.categories = data["categories"])
-        : this.data.error(data["message"]);
-    } catch (error) {
-      this.data.error(error["message"]);
-    }
-  }
+		try {
+			const data = await this.rest.get(`${this.data.serverURL}api/categories`);
+			console.log("categoies data", data);
 
-  async addCategory() {
-    this.btnDisabled = true;
-    try {
-      const data = await this.rest.post(
-        "https://icecreammandc.herokuapp.com/api/categories",
-        { category: this.newCategory }
-      );
-      data["success"]
-        ? this.data.success(data["message"])
-        : this.data.error(data["message"]);
-    } catch (error) {
-      this.data.error(error["message"]);
-    }
-    this.btnDisabled = false;
-  }
+			data["success"]
+				? (this.categories = data["categories"])
+				: this.data.error(data["message"]);
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+	}
+
+	async addCategory() {
+		this.btnDisabled = true;
+		try {
+			const data = await this.rest.post(
+				`${this.data.serverURL}api/categories`,
+				{ category: this.newCategory }
+			);
+			data["success"]
+				? this.data.success(data["message"])
+				: this.data.error(data["message"]);
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+		this.btnDisabled = false;
+	}
 }

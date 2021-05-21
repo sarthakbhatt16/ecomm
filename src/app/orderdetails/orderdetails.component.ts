@@ -9,56 +9,56 @@ import { DataService } from "../data.service";
 
 //component specific details
 @Component({
-  selector: "app-orderdetails",
-  templateUrl: "./orderdetails.component.html",
-  styleUrls: ["./orderdetails.component.scss"],
+	selector: "app-orderdetails",
+	templateUrl: "./orderdetails.component.html",
+	styleUrls: ["./orderdetails.component.scss"],
 })
 
 //exporting OrderDetails component for reuse
 export class OrderdetailsComponent implements OnInit {
-  orderId: any;
-  products: any;
-  totalAmount: any;
+	orderId: any;
+	products: any;
+	totalAmount: any;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private data: DataService,
-    private rest: RestApiService,
-    private router: Router
-  ) {}
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private data: DataService,
+		private rest: RestApiService,
+		private router: Router
+	) { }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((res) => {
-      this.orderId = res["id"];
-      this.getProducts();
-    });
-  }
+	ngOnInit() {
+		this.activatedRoute.params.subscribe((res) => {
+			this.orderId = res["id"];
+			this.getProducts();
+		});
+	}
 
-  async getProducts(event?: any) {
-    if (event) {
-      this.products = null;
-    }
-    try {
-      const data = await this.rest.get(
-        `https://icecreammandc.herokuapp.com/api/accounts/orders/${this.orderId}`
-      );
-      console.log(data);
-      data["success"]
-        ? (this.products = data["order"])
-        : this.data.error(data["message"]);
-      this.products = this.products.products;
-      console.log(data["order"]["totalPrice"]);
-      this.totalAmount = data["order"]["totalPrice"];
-    } catch (error) {
-      this.data.error(error["message"]);
-    }
-  }
+	async getProducts(event?: any) {
+		if (event) {
+			this.products = null;
+		}
+		try {
+			const data = await this.rest.get(
+				`${this.data.serverURL}api/accounts/orders/${this.orderId}`
+			);
+			console.log(data);
+			data["success"]
+				? (this.products = data["order"])
+				: this.data.error(data["message"]);
+			this.products = this.products.products;
+			console.log(data["order"]["totalPrice"]);
+			this.totalAmount = data["order"]["totalPrice"];
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+	}
 
-  async deleteOrder() {
-    const data = await this.rest.get(
-      `https://icecreammandc.herokuapp.com/api/accounts/orders/${this.orderId}/delete`
-    );
-    console.log(data);
-    window.location.replace("https://icmdcfe.herokuapp.com/profile/orders");
-  }
+	async deleteOrder() {
+		const data = await this.rest.get(
+			`${this.data.serverURL}api/accounts/orders/${this.orderId}/delete`
+		);
+		console.log(data);
+		window.location.replace(`${this.data.clientURL}profile/orders`);
+	}
 }

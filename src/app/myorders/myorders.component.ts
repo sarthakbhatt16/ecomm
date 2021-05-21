@@ -8,27 +8,27 @@ import { DataService } from "../data.service";
 
 //component specific details
 @Component({
-  selector: "app-myorders",
-  templateUrl: "./myorders.component.html",
-  styleUrls: ["./myorders.component.scss"],
+	selector: "app-myorders",
+	templateUrl: "./myorders.component.html",
+	styleUrls: ["./myorders.component.scss"],
 })
 
 //exporting orders component
 export class MyordersComponent implements OnInit {
-  myorders: any;
+	myorders: any;
 
-  constructor(private data: DataService, private rest: RestApiService) {}
+	constructor(private data: DataService, private rest: RestApiService) { }
 
-  async ngOnInit() {
-    try {
-      const data = await this.rest.get(
-        "https://icecreammandc.herokuapp.com/api/accounts/orders"
-      );
-      data["success"]
-        ? (this.myorders = data["orders"])
-        : this.data.error(data["message"]);
-    } catch (error) {
-      this.data.error(error["message"]);
-    }
-  }
+	async ngOnInit() {
+		try {
+			const data = await this.rest.get(
+				`${this.data.serverURL}api/accounts/orders`
+			);
+			data["success"]
+				? (this.myorders = data["orders"])
+				: this.data.error(data["message"]);
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+	}
 }
