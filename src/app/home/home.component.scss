@@ -14,7 +14,10 @@
 }
 
 .wtf {
-	font-size: xx-large;
+	color: #fff;
+	font-size: 4rem;
+	font-weight: bold;
+	width: 20rem;
 }
 .content-wrapper {
 	width: 100% !important;
@@ -23,12 +26,15 @@
 	justify-content: space-around;
 	align-items: center;
 }
-.btn-big {
-	font-size: x-large;
+#home {
+	display: flex;
 }
 
 @media screen and (max-width: 767px) {
 	.content-wrapper {
-		flex-direction: column-reverse;
+		flex-direction: column;
+	}
+	.head img {
+		width: 22rem;
 	}
 }

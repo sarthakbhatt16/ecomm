@@ -1,10 +1,10 @@
 .img-wrapper {
-	width: 19rem;
-	height: 19rem;
+	width: 16rem;
+	height: 16rem;
 	overflow: hidden;
 	position: relative;
 	margin: 1rem;
-	border-radius: 1rem;
+	border-radius: 8px;
 }
 .img-wrapper:hover img {
 	filter: blur(0.25rem);
@@ -32,11 +32,22 @@
 }
 
 .list-group {
+	// width: max-content;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	flex-wrap: wrap;
 }
+.pad-2 {
+	padding: 2rem;
+}
+.white {
+	border-color: #fff;
+}
+.bg-white {
+	background: #fff;
+}
+
 @media screen and (max-width: 767px) {
 	.list-group {
 		display: flex;
