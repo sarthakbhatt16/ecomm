@@ -13,12 +13,6 @@
 	width: 35rem;
 }
 
-.wtf {
-	color: #fff;
-	font-size: 4rem;
-	font-weight: bold;
-	width: 20rem;
-}
 .content-wrapper {
 	width: 100% !important;
 	display: flex;
@@ -30,11 +24,15 @@
 	display: flex;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 780px) {
 	.content-wrapper {
 		flex-direction: column;
 	}
 	.head img {
 		width: 22rem;
+	}
+	.wft-text {
+		font-size: 6rem !important;
+		border: 2px solid crimson;
 	}
 }
