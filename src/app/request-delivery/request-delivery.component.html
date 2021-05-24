@@ -1,3 +1,29 @@
-<p>
-  request-delivery works!
-</p>
+<section id="registrationPage">
+	<div class="container p-5">
+		<div class="row mt-5">
+			<div class="col-lg-4 offset-lg-4">
+				<app-message></app-message>
+				<div class="card bg-light">
+					<div class="card-body">
+						<h4 class="text-center">Request Order</h4>
+						<hr />
+						<form>
+							<div class="form-group">
+								<div class="alert alert-success text-center" role="alert">
+									Yo! thanks for shopping at icecreammanD.C.
+								</div>
+								<label class="form-control-label">Mobile</label>
+								<input type="number" name="phone" class="form-control" [(ngModel)]="phone" />
+							</div>
+							<hr />
+							<button type="button" class="btn btn-primary btn-block m-auto" (click)="register()"
+								[disabled]="btnDisabled">
+								Confirm
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

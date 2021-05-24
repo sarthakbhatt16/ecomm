@@ -80,84 +80,84 @@ export class CartComponent implements OnInit {
 	}
 
 	async checkout() {
-		const data = await this.rest.get(
-			`${this.data.serverURL}api/accounts/address`
-		);
+		// const data = await this.rest.get(
+		// 	`${this.data.serverURL}api/accounts/address`
+		// );
 
-		if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
-			alert(
-				"Shipping address is not entered in profile details. Please enter a shipping address"
-			);
-			location.href = `${this.data.clientURL}profile/address`;
-			return;
-		}
+		// if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
+		// 	alert(
+		// 		"Shipping address is not entered in profile details. Please enter a shipping address"
+		// 	);
+		// 	location.href = `${this.data.clientURL}profile/address`;
+		// 	return;
+		// }
 
-		for (let i = 0; i < this.cartItems.length; ++i) {
-			if (this.cartItems[i].quantity - this.quantities[i] < 0) {
-				alert(
-					this.cartItems[i].title +
-					" has " +
-					this.cartItems[i].quantity +
-					" items in stock"
-				);
-				return false;
-			}
-		}
+		// for (let i = 0; i < this.cartItems.length; ++i) {
+		// 	if (this.cartItems[i].quantity - this.quantities[i] < 0) {
+		// 		alert(
+		// 			this.cartItems[i].title +
+		// 			" has " +
+		// 			this.cartItems[i].quantity +
+		// 			" items in stock"
+		// 		);
+		// 		return false;
+		// 	}
+		// }
 
-		for (let i = 0; i < this.cartItems.length; ++i) {
-			this.http
-				.post(
-					`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
-					{ qty: this.cartItems[i].quantity - this.quantities[i] }
-				)
-				.subscribe((val) => {
-					console.log();
-				});
-		}
+		// for (let i = 0; i < this.cartItems.length; ++i) {
+		// 	this.http
+		// 		.post(
+		// 			`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
+		// 			{ qty: this.cartItems[i].quantity - this.quantities[i] }
+		// 		)
+		// 		.subscribe((val) => {
+		// 			console.log();
+		// 		});
+		// }
 
-		this.btnDisabled = true;
-		try {
-			if (this.validate()) {
-				let products;
-				products = [];
-				this.cartItems.forEach((d, index) => {
-					console.log(d);
-					products.push({
-						product: d["_id"],
-						quantity: this.quantities[index],
-					});
-				});
+		// this.btnDisabled = true;
+		// try {
+		// 	if (this.validate()) {
+		// 		let products;
+		// 		products = [];
+		// 		this.cartItems.forEach((d, index) => {
+		// 			console.log(d);
+		// 			products.push({
+		// 				product: d["_id"],
+		// 				quantity: this.quantities[index],
+		// 			});
+		// 		});
 
-				this.http
-					.post(
-						`${this.data.serverURL}api/payment`,
-						{
-							total: this.cartTotal,
-							products,
-							qty: this.quantities,
-						},
-						{
-							headers: this.getHeaders(),
-						}
-					)
-					.subscribe(
-						(val) => {
-							console.log("POST call successful value returned in body", val);
-						},
-						(response) => {
-							console.log("POST call in error", response);
-						},
-						() => {
-							console.log("The POST observable is now completed.");
-						}
-					);
-			} else {
-				this.btnDisabled = false;
-			}
-		} catch (error) {
-			this.data.error(error);
-		}
-		this.data.clearCart();
-		window.location.replace(`${this.data.clientURL}profile/orders`);
+		// 		this.http
+		// 			.post(
+		// 				`${this.data.serverURL}api/payment`,
+		// 				{
+		// 					total: this.cartTotal,
+		// 					products,
+		// 					qty: this.quantities,
+		// 				},
+		// 				{
+		// 					headers: this.getHeaders(),
+		// 				}
+		// 			)
+		// 			.subscribe(
+		// 				(val) => {
+		// 					console.log("POST call successful value returned in body", val);
+		// 				},
+		// 				(response) => {
+		// 					console.log("POST call in error", response);
+		// 				},
+		// 				() => {
+		// 					console.log("The POST observable is now completed.");
+		// 				}
+		// 			);
+		// 	} else {
+		// 		this.btnDisabled = false;
+		// 	}
+		// } catch (error) {
+		// 	this.data.error(error);
+		// }
+		// this.data.clearCart();
+		window.location.replace(`${this.data.clientURL}request`);
 	}
 }

@@ -36,6 +36,7 @@ import { MyordersComponent } from "./myorders/myorders.component";
 import { OrderdetailsComponent } from "./orderdetails/orderdetails.component";
 import { EditProductComponent } from "./edit-product/edit-product.component";
 import { RequestDeliveryComponent } from './request-delivery/request-delivery.component';
+import { DeliveryRequestComponent } from './delivery-request/delivery-request.component';
 
 //Module decorator specifying all the components used in the application
 @NgModule({
@@ -59,6 +60,7 @@ import { RequestDeliveryComponent } from './request-delivery/request-delivery.co
     OrderdetailsComponent,
     EditProductComponent,
     RequestDeliveryComponent,
+    DeliveryRequestComponent,
   ],
   imports: [
     BrowserModule,

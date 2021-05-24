@@ -26,91 +26,95 @@ import { RequestDeliveryComponent } from "./request-delivery/request-delivery.co
 
 //assigning all possible routes to variable
 const routes: Routes = [
-  {
-    path: "profile/edit-product/:id",
-    component: EditProductComponent,
-  },
-  {
-    path: "",
-    component: HomeComponent,
-  },
-  {
-    path: "search",
-    component: SearchComponent,
-  },
-  {
-    path: "cart",
-    component: CartComponent,
-  },
-  {
-    path: "cart/request",
-    component: RequestDeliveryComponent,
-  },
-  {
-    path: "categories",
-    component: CategoriesComponent,
-  },
-  {
-    path: "categories/:id",
-    component: CategoryComponent,
-  },
-  {
-    path: "product/:id",
-    component: ProductComponent,
-  },
-  {
-    path: "orders/:id",
-    component: OrderdetailsComponent,
-  },
-  {
-    path: "register",
-    component: RegistrationComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "login",
-    component: LoginComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile",
-    component: ProfileComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile/settings",
-    component: SettingsComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile/address",
-    component: AddressComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile/postproduct",
-    component: PostProductComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile/myproducts",
-    component: MyProductsComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "profile/orders",
-    component: MyordersComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "**",
-    redirectTo: "",
-  },
+	{
+		path: "profile/edit-product/:id",
+		component: EditProductComponent,
+	},
+	{
+		path: "",
+		component: HomeComponent,
+	},
+	{
+		path: "search",
+		component: SearchComponent,
+	},
+	{
+		path: "cart",
+		component: CartComponent,
+	},
+	{
+		path: "cart/request",
+		component: RequestDeliveryComponent,
+	},
+	{
+		path: "categories",
+		component: CategoriesComponent,
+	},
+	{
+		path: "categories/:id",
+		component: CategoryComponent,
+	},
+	{
+		path: "request",
+		component: RequestDeliveryComponent,
+	},
+	{
+		path: "product/:id",
+		component: ProductComponent,
+	},
+	{
+		path: "orders/:id",
+		component: OrderdetailsComponent,
+	},
+	{
+		path: "register",
+		component: RegistrationComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "login",
+		component: LoginComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile",
+		component: ProfileComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile/settings",
+		component: SettingsComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile/address",
+		component: AddressComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile/postproduct",
+		component: PostProductComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile/myproducts",
+		component: MyProductsComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "profile/orders",
+		component: MyordersComponent,
+		canActivate: [AuthGuardService],
+	},
+	{
+		path: "**",
+		redirectTo: "",
+	},
 ];
 
 //decorator to import and export routing Module in the application
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
