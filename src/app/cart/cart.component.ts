@@ -1,13 +1,19 @@
 //Cart component.ts - Type Script file that contains code to render cart feature to elearning application
 
 //including the required files and services
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
+
+import { ModalDialogService, SimpleModalComponent } from 'ngx-modal-dialog';
+
+
 
 import { environment } from "../../environments/environment";
 import { DataService } from "../data.service";
 import { RestApiService } from "../rest-api.service";
 import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import {RequestDeliveryComponent} from "../request-delivery/request-delivery.component"
 
 //componnet files specifications
 @Component({
@@ -22,6 +28,7 @@ export class CartComponent implements OnInit {
 	handler: any;
 
 	quantities = [];
+	numTest : any = "457874654464"
 
 	getHeaders() {
 		const token = localStorage.getItem("token");
@@ -32,7 +39,9 @@ export class CartComponent implements OnInit {
 		private data: DataService,
 		private rest: RestApiService,
 		private router: Router,
-		private http: HttpClient
+		private http: HttpClient,
+		private modalService: ModalDialogService,
+		private viewRef: ViewContainerRef	
 	) { }
 
 	trackByCartItems(index: number, item: any) {
@@ -60,6 +69,8 @@ export class CartComponent implements OnInit {
 		this.cartItems.forEach((data) => {
 			this.quantities.push(1);
 		});
+		console.log("on init quantity array",this.cartItems, this.quantities);
+		
 	}
 
 	validate() {
@@ -69,8 +80,8 @@ export class CartComponent implements OnInit {
 			this.router.navigate(["/login"]).then(() => {
 				this.data.warning("You need to login before making a purchase.");
 			});
-		} else if (!this.data.user["address"]) {
-			this.router.navigate(["/profile/address"]).then(() => {
+		} else if (!this.data.user[""]) {
+			this.router.navigate(["/profile/settings"]).then(() => {
 				this.data.warning("You need to login before making a purchase.");
 			});
 		} else {
@@ -78,86 +89,121 @@ export class CartComponent implements OnInit {
 			return true;
 		}
 	}
-
-	async checkout() {
-		const data = await this.rest.get(
-			`${this.data.serverURL}api/accounts/address`
-		);
-
-		if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
-			alert(
-				"Shipping address is not entered in profile details. Please enter a shipping address"
+	checkout() {
+		//check for user login
+		//check for contact number
+		//
+			this.modalService.openDialog(this.viewRef, {
+			  title: 'Please confirm order',
+			  childComponent: SimpleModalComponent,
+				data: {
+				  text: 'Brah! Thanks for shopping',
+				},
+				actionButtons: [
+					{ text: 'Change order', 
+					},
+					{
+						text: 'Change contact number', onAction:()=>{
+							location.href = `${this.data.clientURL}profile/settings`;
+						}
+					},
+					{ text: 'Confirm', onAction: () => {
+						console.log("confirm clicked");
+						
+					} }
+				  ]
+				
+			},
+			
 			);
-			location.href = `${this.data.clientURL}profile/address`;
-			return;
-		}
-
-		for (let i = 0; i < this.cartItems.length; ++i) {
-			if (this.cartItems[i].quantity - this.quantities[i] < 0) {
-				alert(
-					this.cartItems[i].title +
-					" has " +
-					this.cartItems[i].quantity +
-					" items in stock"
-				);
-				return false;
-			}
-		}
-
-		for (let i = 0; i < this.cartItems.length; ++i) {
-			this.http
-				.post(
-					`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
-					{ qty: this.cartItems[i].quantity - this.quantities[i] }
-				)
-				.subscribe((val) => {
-					console.log();
-				});
-		}
-
-		this.btnDisabled = true;
-		try {
-			if (this.validate()) {
-				let products;
-				products = [];
-				this.cartItems.forEach((d, index) => {
-					console.log(d);
-					products.push({
-						product: d["_id"],
-						quantity: this.quantities[index],
-					});
-				});
-
-				this.http
-					.post(
-						`${this.data.serverURL}api/payment`,
-						{
-							total: this.cartTotal,
-							products,
-							qty: this.quantities,
-						},
-						{
-							headers: this.getHeaders(),
-						}
-					)
-					.subscribe(
-						(val) => {
-							console.log("POST call successful value returned in body", val);
-						},
-						(response) => {
-							console.log("POST call in error", response);
-						},
-						() => {
-							console.log("The POST observable is now completed.");
-						}
-					);
-			} else {
-				this.btnDisabled = false;
-			}
-		} catch (error) {
-			this.data.error(error);
-		}
-		this.data.clearCart();
-		window.location.replace(`${this.data.clientURL}profile/orders`);
+	   
+		
 	}
+
+	//  async checkout() {
+	// 	await this.data.getProfile() // gt user information
+	// 	console.log("data.user", this.data.user);
+	// 	if(this.data.user == undefined || this.data.user == null || this.data.user.contactNumber == ""){ //check for login user
+	// 		alert("please login or signup to request for delivery.")
+	// 	}
+	// // 	const data = await this.rest.get(
+	// // 		`${this.data.serverURL}api/accounts/address` // check for empty address
+	// // 	);
+
+	// // 	if (JSON.stringify(data["address"]) === "{}" && this.data.message === "") {
+	// // 		alert(
+	// // 			"Shipping address is not entered in profile details. Please enter a shipping address" //display error message if address not found
+	// // 		);
+	// // 		location.href = `${this.data.clientURL}profile/address`;
+	// // 		return;
+	// // 	}
+
+	// // 	for (let i = 0; i < this.cartItems.length; ++i) { // check if the ordered quantity is greater than the in stock qty
+	// // 		if (this.cartItems[i].quantity - this.quantities[i] < 0) {
+	// // 			alert(
+	// // 				this.cartItems[i].title +
+	// // 				" has " +
+	// // 				this.cartItems[i].quantity +
+	// // 				" items in stock"
+	// // 			);
+	// // 			return false;
+	// // 		}
+	// // 	}
+
+	// // 	for (let i = 0; i < this.cartItems.length; ++i) { // subtract the ordered qty from the stock in the db
+	// // 		this.http
+	// // 			.post(
+	// // 				`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
+	// // 				{ qty: this.cartItems[i].quantity - this.quantities[i] }
+	// // 			)
+	// // 			.subscribe((val) => {
+	// // 				console.log();
+	// // 			});
+	// // 	}
+
+	// // 	this.btnDisabled = true; 
+	// // 	try {
+	// // 		if (this.validate()) {
+	// // 			let products;
+	// // 			products = [];
+	// // 			this.cartItems.forEach((d, index) => {
+	// // 				console.log(d);
+	// // 				products.push({
+	// // 					product: d["_id"],
+	// // 					quantity: this.quantities[index],
+	// // 				});
+	// // 			});
+
+	// // 			this.http
+	// // 				.post(
+	// // 					`${this.data.serverURL}api/payment`,
+	// // 					{
+	// // 						total: this.cartTotal,
+	// // 						products,
+	// // 						qty: this.quantities,
+	// // 					},
+	// // 					{
+	// // 						headers: this.getHeaders(),
+	// // 					}
+	// // 				)
+	// // 				.subscribe(
+	// // 					(val) => {
+	// // 						console.log("POST call successful value returned in body", val);
+	// // 					},
+	// // 					(response) => {
+	// // 						console.log("POST call in error", response);
+	// // 					},
+	// // 					() => {
+	// // 						console.log("The POST observable is now completed.");
+	// // 					}
+	// // 				);
+	// // 		} else {
+	// // 			this.btnDisabled = false;
+	// // 		}
+	// // 	} catch (error) {
+	// // 		this.data.error(error);
+	// // 	}
+	// // 	this.data.clearCart();
+	// // 	window.location.replace(`${this.data.clientURL}profile/orders`);
+	//  }
 }

@@ -25,6 +25,8 @@ export class SettingsComponent implements OnInit {
 			if (!this.data.user) {
 				await this.data.getProfile();
 			}
+			console.log("data user", this.data.user);
+			
 			this.currentSettings = Object.assign(
 				{
 					newPwd: "",
@@ -32,6 +34,8 @@ export class SettingsComponent implements OnInit {
 				},
 				this.data.user
 			);
+			console.log("current settings -->", this.currentSettings);
+			
 		} catch (error) {
 			this.data.error(error);
 		}

@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit {
 	email = "";
 	password = "";
 	password1 = "";
+	contact = "";
 	isSeller = false;
 
 	btnDisabled = false;
@@ -33,6 +34,8 @@ export class RegistrationComponent implements OnInit {
 	ngOnInit() { }
 
 	validate() {
+		console.log("contact", this.contact);
+		
 		if (this.name) {
 			if (
 				this.email &&
@@ -49,8 +52,16 @@ export class RegistrationComponent implements OnInit {
 									/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 								)
 							) {
-								return true;
-							} else {
+								if(this.contact.match(/^\d{10}$/)){
+								
+									
+									return true;
+								}
+								else{
+									this.data.error("Invalid phone number. Do not use any symbols or country code. Enter only valid US phone number.")
+								}
+							}
+							 else {
 								this.data.error(
 									"Password should contain 8 chars, 1 lowercase, 1 uppercase, 1 digit and one of [!@#$%^&*]"
 								);
@@ -82,6 +93,7 @@ export class RegistrationComponent implements OnInit {
 						name: this.name,
 						email: this.email,
 						password: this.password,
+						contact : this.contact,
 						isSeller: this.isSeller,
 					}
 				);
@@ -89,7 +101,7 @@ export class RegistrationComponent implements OnInit {
 					localStorage.setItem("token", data["token"]);
 					await this.data.getProfile();
 					this.data.success("Registration successful!");
-					location.href = `${this.data.clientURL}profile/address`;
+					location.href = `${this.data.clientURL}/`;
 				} else {
 					this.data.error(data["message"]);
 				}

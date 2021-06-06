@@ -40,6 +40,8 @@ export class ProductComponent implements OnInit {
 					data["success"]
 						? (this.product = data["product"])
 						: this.router.navigate(["/"]);
+						console.log("show product", this.product);
+						
 				})
 				.catch((error) => this.data.error(error["message"]));
 		});

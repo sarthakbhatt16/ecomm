@@ -14,7 +14,7 @@
     </h3>
     <div *ngIf="category && category.products.length">
       <p>
-        {{ lower }}-{{ upper }} of {{ category.totalProducts }} products in
+         {{ category.totalProducts }} products in
         {{ category.categoryName }}
       </p>
       <hr />
@@ -25,12 +25,17 @@
         (input)="filterItem(myInput.value)"
       />
       <br /><br />
-      <div
+      <!-- <div
         class="product"
         *ngFor="
           let product of filteredItems
             | slice: (page - 1) * 2:(page - 1) * 2 + 2
         "
+      > -->
+        <!-- Removing slice as a part of branch-10: to display all the products on one page. -->
+      <div
+        class="product"
+        *ngFor="let product of filteredItems"
       >
         <div class="row">
           <div class="col-5 col-md-2">
@@ -57,22 +62,24 @@
               </div>
               <div class="col-md-6">
                 <ngb-rating
+                  *ngIf= "product.averageRating > 0"
                   [(rate)]="product.averageRating"
                   [starTemplate]="t"
                   [readonly]="true"
                   max="5"
                 ></ngb-rating>
+                <p *ngIf= "product.averageRating == 0"> No reviews</p>
               </div>
             </div>
           </div>
         </div>
         <hr />
       </div>
-      <ngb-pagination
+      <!-- <ngb-pagination
         [collectionSize]="category.totalProducts"
         [pageSize]="2"
         [(page)]="page"
-      ></ngb-pagination>
+      ></ngb-pagination> -->
     </div>
   </div>
 </section>

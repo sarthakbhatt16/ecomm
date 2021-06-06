@@ -10,10 +10,10 @@ import { RestApiService } from "./rest-api.service";
 export class DataService {
 	message = "";
 	messageType = "danger";
-	serverURL = "https://icecreammandc.herokuapp.com/";
-	clientURL = "https://icmdcfe.herokuapp.com/";
-	// serverURL = "http://localhost:3030/";
-	// clientURL = "http://localhost:4200/";
+	// serverURL = "https://icecreammandc.herokuapp.com/";
+	// clientURL = "https://icmdcfe.herokuapp.com/";
+	serverURL = "http://localhost:3030/";
+	clientURL = "http://localhost:4200/";
 	user: any;
 	cartItems = 0;
 
@@ -47,7 +47,7 @@ export class DataService {
 					`${this.serverURL}api/accounts/profile`
 				);
 				this.user = data["user"];
-				console.log(this.user);
+				console.log("get user called", this.user);
 			}
 		} catch (e) {
 			this.error(e);

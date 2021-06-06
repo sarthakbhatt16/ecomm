@@ -13,6 +13,7 @@ import { AppComponent } from "./app.component";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ModalDialogModule } from 'ngx-modal-dialog';
 
 import { RestApiService } from "./rest-api.service";
 import { DataService } from "./data.service";
@@ -64,6 +65,7 @@ import { RequestDeliveryComponent } from './request-delivery/request-delivery.co
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    ModalDialogModule.forRoot(),
     FormsModule,
     HttpClientModule,
   ],
