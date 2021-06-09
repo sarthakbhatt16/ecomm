@@ -8,7 +8,7 @@
     </div>
     <div *ngIf="categories" class="list-group">
 	  <div class="img-wrapper"  *ngFor="let category of categories" routerLink="/categories/{{ category._id }}">
-		  <img src="../../assets/img/matthew-brodeur-qcCPIhhdgTw-unsplash.jpg" alt="">
+		  <img  src={{category.imgUrl}} alt={{category.name}}>
 		  <span class="img-title">{{category.name}}</span>
 	  </div>
     </div>
