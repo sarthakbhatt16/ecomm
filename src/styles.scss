@@ -180,14 +180,15 @@ simple-modal-dialog {
 	width: 100%;
 }
 @media screen and (min-width: 767px) {
-	section:first-child {
-		min-height: 84vh;
-		margin: 1rem;
-	}
-
 	.modal-footer {
 		display: flex;
 		flex-direction: row;
 		gap: inherit;
+	}
+}
+@media screen and (max-width: 767px) {
+	section:first-child {
+		min-height: 84vh;
+		margin: 1rem;
 	}
 }
