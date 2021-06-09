@@ -68,7 +68,7 @@ export class CategoryComponent implements OnInit {
 				: this.data.error(data["message"]);
 			console.log(this.category.products);
 			this.assignCopy();
-			console.log(this.filteredItems);
+			console.log("filtered items",this.filteredItems);
 		} catch (error) {
 			this.data.error(error["message"]);
 		}

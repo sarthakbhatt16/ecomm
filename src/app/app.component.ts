@@ -5,6 +5,7 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataService } from "./data.service";
 import * as Parallax from "parallax-js";
+import { RestApiService } from "./rest-api.service";
 
 declare var Parallax: any;
 
@@ -19,10 +20,12 @@ declare var Parallax: any;
 export class AppComponent {
   searchTerm = "";
   isCollapsed = true;
+  categories: any
  
-  constructor(private router: Router, public data: DataService) {
+  constructor(private router: Router, public data: DataService,  private rest: RestApiService) {
     this.data.cartItems = this.data.getCart().length;
     this.data.getProfile(); 
+    this.getCategories()
   }
 
 
@@ -50,6 +53,20 @@ export class AppComponent {
       this.collapse();
       this.router.navigate(["search", { query: this.searchTerm }]);
     }
+  }
+
+  async getCategories(){
+    try {
+			const data = await this.rest.get(`${this.data.serverURL}api/categories`);
+			console.log("categoies data", data);
+
+			data["success"]
+				? (this.categories = data["categories"])
+				: this.data.error(data["message"]);
+		} catch (error) {
+			this.data.error(error["message"]);
+		}
+
   }
 
   ngAfterContentInit(): void {}

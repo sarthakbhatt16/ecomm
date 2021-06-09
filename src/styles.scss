@@ -132,6 +132,19 @@ h5 {
 // 	background-image: url(./assets/img/menu-icon.png);
 // }
 
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+	color: black
+}
+simple-modal-dialog {
+	color: black
+}
+.modal-content {
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+}
 @media screen and (max-width: 767px) {
 	section:first-child {
 		min-height: 84vh;
