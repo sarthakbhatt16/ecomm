@@ -1,3 +1,12 @@
+<h6>
+  Please confirm your order and contact number.
+  <br> We will contact you shortly to move forward with your order.
+  
+</h6>
+
+<br>
+<br>
+
 <div class="row">
   <div class="col-8">
     <h4>Item</h4>
@@ -11,4 +20,20 @@
     <div class="col-8">{{item.name}}</div>
     <div class="col-3 offset-1">{{item.quantity}}</div>
   </div>
+</div>
+
+<br>
+<br>
+
+<div class="form-group">
+  <label class="form-control-label">We will call you on:</label>
+  <input
+    type="text"
+    name="contactNumber"
+    placeholder= "Do not use any special characters or symbols."
+    class="form-control"
+    [(ngModel)]="checkOutNumber"
+    (ngModelChange)="checkForValidity()"
+  />
+  <h5 *ngIf = "data.invalidNumber == true" style="color:red">Please enter valid contact number</h5>
 </div>
