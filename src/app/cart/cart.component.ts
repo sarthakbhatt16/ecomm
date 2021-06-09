@@ -29,7 +29,7 @@ export class CartComponent implements OnInit {
 	handler: any;
 
 	quantities = [];
-	numTest : any = "457874654464"
+	checkOutContactNumber :any =  ""
 
 	getHeaders() {
 		const token = localStorage.getItem("token");
@@ -43,13 +43,15 @@ export class CartComponent implements OnInit {
 		private http: HttpClient,
 		private modalService: ModalDialogService,
 		private viewRef: ViewContainerRef	
-	) { }
+	) {}
 
 	trackByCartItems(index: number, item: any) {
 		return item._id;
 	}
 
 	get cartItems() {
+		console.log("get cart itmes called", this.data.getCart());
+		
 		return this.data.getCart();
 	}
 
@@ -125,7 +127,7 @@ export class CartComponent implements OnInit {
 						quantity: this.quantities[index]
 					})
 				});
-				this.confirmDeliveryPresentModal(displayArray)
+				this.confirmDeliveryPresentModal(displayArray, products)
 				console.log("products list", products);
 				
 
@@ -139,7 +141,12 @@ export class CartComponent implements OnInit {
 		
 	}
 
-	confirmDeliveryPresentModal(displayArray){
+	async confirmDeliveryPresentModal(displayArray,productsArray){
+		this.data.invalidNumber = false
+		await this.data.getProfile()
+		this.checkOutContactNumber = this.data.user.contactNumber
+		console.log("this.data user", this.data.user, this.checkOutContactNumber);
+		
 		console.log("display array string", displayArray, JSON.stringify(displayArray).toString());
 		
 		this.modalService.openDialog(this.viewRef,{
@@ -147,20 +154,17 @@ export class CartComponent implements OnInit {
 			childComponent: RequestDeliveryComponent,
 			  data: {
 					//text: JSON.stringify(displayArray)
-				text: 123,
-				list: displayArray
+				text: this.checkOutContactNumber,
+				list: displayArray,
+				//checkoutContactNumber : this.checkOutContactNumber
 				
 			  },
 			  actionButtons: [
-				  { text: 'Change order', 
-				  },
-				  {
-					  text: 'Change contact number', onAction:()=>{
-						  location.href = `${this.data.clientURL}profile/settings`;
-					  }
+				  { text: 'Change order'
 				  },
 				  { text: 'Confirm', onAction: () => {
 					  console.log("confirm clicked");
+					  this.confirmOrder(productsArray)
 					  
 				  } }
 				]
@@ -172,32 +176,55 @@ export class CartComponent implements OnInit {
 
 	}
 
-	// confirmOrder(){
+	confirmOrder(productsArray){
+		try {
+			if(this.data.invalidNumber == true) return false
 
-	// 	this.http
-	// 	.post(
-	// 		`${this.data.serverURL}api/payment`,
-	// 		{
-	// 			total: this.cartTotal,
-	// 			products,
-	// 			qty: this.quantities,
-	// 		},
-	// 		{
-	// 			headers: this.getHeaders(),
-	// 		}
-	// 	)
-	// 	.subscribe(
-	// 		(val) => {
-	// 			console.log("POST call successful value returned in body", val);
-	// 		},
-	// 		(response) => {
-	// 			console.log("POST call in error", response);
-	// 		},
-	// 		() => {
-	// 			console.log("The POST observable is now completed.");
-	// 		}
-	// 	);
-	// }
+		this.http
+		.post(
+			`${this.data.serverURL}api/payment`,
+			{
+				total: this.cartTotal,
+				productsArray,
+				qty: this.quantities,
+			},
+			{
+				headers: this.getHeaders(),
+			}
+		)
+		.subscribe(
+			(val) => {
+				console.log("POST call successful value returned in body", val);
+				for (let i = 0; i < this.cartItems.length; ++i) { // subtract the ordered qty from the stock in the db
+					this.http
+						.post(
+							`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
+							{ qty: this.cartItems[i].quantity - this.quantities[i] }
+						)
+						.subscribe((val) => {
+							console.log();
+						},(error)=>{
+							
+							
+						})
+				}
+		
+			},
+			(response) => {
+				console.log("POST call in error", response);
+			},
+			() => {
+				console.log("The POST observable is now completed.");
+			}
+		);		
+		} catch (error) {
+			this.data.error(error)
+		}
+		this.data.invalidNumber = false
+		this.data.clearCart();
+		window.location.replace(`${this.data.clientURL}profile/orders`);
+		
+	}
 
 	 async checkoutOne() {
 		// await this.data.getProfile() // gt user information
@@ -217,28 +244,28 @@ export class CartComponent implements OnInit {
 		// 	return;
 		// }
 
-		for (let i = 0; i < this.cartItems.length; ++i) { // check if the ordered quantity is greater than the in stock qty
-			if (this.cartItems[i].quantity - this.quantities[i] < 0) {
-				alert(
-					this.cartItems[i].title +
-					" has " +
-					this.cartItems[i].quantity +
-					" items in stock"
-				);
-				return false;
-			}
-		}
+		// for (let i = 0; i < this.cartItems.length; ++i) { // check if the ordered quantity is greater than the in stock qty
+		// 	if (this.cartItems[i].quantity - this.quantities[i] < 0) {
+		// 		alert(
+		// 			this.cartItems[i].title +
+		// 			" has " +
+		// 			this.cartItems[i].quantity +
+		// 			" items in stock"
+		// 		);
+		// 		return false;
+		// 	}
+		// }
 
-		for (let i = 0; i < this.cartItems.length; ++i) { // subtract the ordered qty from the stock in the db
-			this.http
-				.post(
-					`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
-					{ qty: this.cartItems[i].quantity - this.quantities[i] }
-				)
-				.subscribe((val) => {
-					console.log();
-				});
-		}
+		// for (let i = 0; i < this.cartItems.length; ++i) { // subtract the ordered qty from the stock in the db
+		// 	this.http
+		// 		.post(
+		// 			`${this.data.serverURL}api/product/` + this.cartItems[i]._id + "/qty",
+		// 			{ qty: this.cartItems[i].quantity - this.quantities[i] }
+		// 		)
+		// 		.subscribe((val) => {
+		// 			console.log();
+		// 		});
+		// }
 
 		this.btnDisabled = true; 
 		try {

@@ -6,12 +6,12 @@
         <i class="fa fa-spinner fa-spin"></i>
       </h1>
     </div>
-    <h3
+    <h5
       *ngIf="category && !category.products.length"
-      class="display-2 text-center mt-5"
+      class=" text-center mt-5"
     >
-      No Products inside Category
-    </h3>
+      No products inside this category.
+    </h5>
     <div *ngIf="category && category.products.length">
       <p>
          {{ category.totalProducts }} products in

@@ -16,6 +16,7 @@ export class DataService {
 	clientURL = "http://localhost:4200/";
 	user: any;
 	cartItems = 0;
+	public invalidNumber : boolean = false
 
 	constructor(private router: Router, private rest: RestApiService) {
 		this.router.events.subscribe((event) => {
